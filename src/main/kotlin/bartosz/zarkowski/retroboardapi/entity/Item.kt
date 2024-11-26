@@ -18,13 +18,13 @@ class Item(
     @ManyToOne(fetch = EAGER)
     @JoinColumn(name = "board_id", nullable = false)
     val board: Board
-) {
+) : EntityInterface {
     @Id
     @Column(unique = true, nullable = false)
     @JdbcTypeCode(Types.VARCHAR)
-    val id: UUID = UUID.randomUUID()
+    override val id: UUID = UUID.randomUUID()
     @Column(name = "created_at", nullable = false)
-    val createdAt: Instant = Instant.now()
+    override val createdAt: Instant = Instant.now()
     @Column(name = "updated_at", nullable = true)
-    val updatedAt: Instant? = null
+    override val updatedAt: Instant? = null
 }

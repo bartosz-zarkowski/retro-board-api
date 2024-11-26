@@ -10,18 +10,18 @@ import java.util.*
 @Table(name = "board")
 class Board(
     @Column(nullable = false)
-    val title: String,
+    var title: String,
     @Column(nullable = false)
-    val description: String,
-) {
+    var description: String,
+) : EntityInterface {
     @Id
     @Column(unique = true, nullable = false)
     @JdbcTypeCode(Types.VARCHAR)
-    val id: UUID = UUID.randomUUID()
+    override val id: UUID = UUID.randomUUID()
     @Column(name = "created_at", nullable = false)
-    val createdAt: Instant = Instant.now()
+    override val createdAt: Instant = Instant.now()
     @Column(name = "updated_at")
-    val updatedAt: Instant? = null
+    override val updatedAt: Instant? = null
 
     @OneToMany(mappedBy = "board", cascade = [CascadeType.ALL], orphanRemoval = true, fetch = FetchType.EAGER)
     val items: MutableList<Item> = mutableListOf()
