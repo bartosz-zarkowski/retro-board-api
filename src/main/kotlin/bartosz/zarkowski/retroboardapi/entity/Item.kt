@@ -3,6 +3,8 @@ package bartosz.zarkowski.retroboardapi.entity
 import bartosz.zarkowski.retroboardapi.enum.ItemType
 import jakarta.persistence.*
 import jakarta.persistence.FetchType.EAGER
+import org.hibernate.annotations.JdbcTypeCode
+import java.sql.Types
 import java.time.Instant
 import java.util.UUID
 
@@ -10,6 +12,7 @@ import java.util.UUID
 @Table(name = "item")
 class Item(
     @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     val type: ItemType,
     val content: String,
     @ManyToOne(fetch = EAGER)
@@ -18,10 +21,10 @@ class Item(
 ) {
     @Id
     @Column(unique = true, nullable = false)
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    val id: String = UUID.randomUUID().toString()
+    @JdbcTypeCode(Types.VARCHAR)
+    val id: UUID = UUID.randomUUID()
     @Column(name = "created_at", nullable = false)
     val createdAt: Instant = Instant.now()
-    @Column(name = "updated_at", nullable = false)
+    @Column(name = "updated_at", nullable = true)
     val updatedAt: Instant? = null
 }
