@@ -44,6 +44,7 @@ dependencies {
     implementation("org.flywaydb:flyway-mysql:11.0.0")
     testImplementation("org.springframework.boot:spring-boot-starter-test:$springBootVersion")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit5:$kotlinVersion")
+    testImplementation("org.mockito.kotlin:mockito-kotlin:5.4.0")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher:1.11.3")
 }
 
