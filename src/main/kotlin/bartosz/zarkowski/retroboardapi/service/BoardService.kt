@@ -4,6 +4,8 @@ import bartosz.zarkowski.retroboardapi.dto.board.BoardResponseModel
 import bartosz.zarkowski.retroboardapi.exception.NotFoundException
 import bartosz.zarkowski.retroboardapi.extension.toResponseModel
 import bartosz.zarkowski.retroboardapi.repository.BoardRepositoryInterface
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 import java.util.UUID
 
@@ -22,4 +24,7 @@ class BoardService(
 
         return board.toResponseModel()
     }
+
+    fun getAllBoards(pageable: Pageable): Page<BoardResponseModel> =
+         boardRepository.findAll(pageable).map { it.toResponseModel() }
 }

@@ -12,6 +12,7 @@ import kotlin.test.Test
 
 @SpringBootTest
 @AutoConfigureMockMvc
+@Transactional
 class BoardControllerTest : BaseControllerTest() {
 
     @Autowired
@@ -20,13 +21,23 @@ class BoardControllerTest : BaseControllerTest() {
     val boardDummyData = BoardDummyData()
 
     @Test
-    @Transactional
-    fun `getBoardByID returns board`() {
+    fun `getBoardByID returns http status OK`() {
         val board = boardDummyData.board
         boardRepository.save(board)
 
         performMockRequest(
             get("/v1/boards/${board.id}"),
+            MockMvcResultMatchers.status().isOk
+        )
+    }
+
+    @Test
+    fun `getAllBoards returns http status OK`() {
+        val board = boardDummyData.board
+        boardRepository.save(board)
+
+        performMockRequest(
+            get("/v1/boards"),
             MockMvcResultMatchers.status().isOk
         )
     }
